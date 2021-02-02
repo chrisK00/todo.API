@@ -17,7 +17,7 @@ namespace todo.API.Controllers
         //Dependancy injecting our db context
         public TodoController(DataContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         [HttpGet]
