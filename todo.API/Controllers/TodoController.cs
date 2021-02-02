@@ -37,7 +37,7 @@ namespace todo.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UpdateTodo(TodoToAddDto todoToAddDto)
+        public async Task<IActionResult> AddTodo(TodoToAddDto todoToAddDto)
         {
             var todoToAdd = new Todo()
             {
