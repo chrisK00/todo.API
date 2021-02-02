@@ -6,7 +6,7 @@ namespace todo.API.Dtos
     /// Data Transfer Object
     /// Whenever a new todo is added we dont want the user to specify the id but rather the Db do it
     /// </summary>
-    public class TodoDtoBase
+    public class TodoToAddDto
     {
         [Required, MinLength(1)]
         public string Title { get; set; }
