@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 using todo.API.Data;
 using todo.API.Dtos;
@@ -28,7 +29,7 @@ namespace todo.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTodo(int id)
+        public async Task<IActionResult> GetTodo(Guid id)
         {
             var todo = await _context.Todos.FindAsync(id);
             return Ok(todo);
@@ -48,8 +49,8 @@ namespace todo.API.Controllers
             await _context.Todos.AddAsync(todoToAdd);
             await _context.SaveChangesAsync();
 
-            //Return a 201 with the location and title of the item
-            return Created("Todo", todoToAddDto.Title);
+            //Return a 201 and where the item can be found
+            return Created("Todo", todoToAdd.Id);
         }
 
         [HttpDelete("{id}")]
