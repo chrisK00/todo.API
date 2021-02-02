@@ -25,6 +25,7 @@ namespace todo.API
             services.AddDbContext<DataContext>(options => options.UseSqlite(
                 Configuration.GetConnectionString("Default")));
             services.AddCors();
+            services.AddScoped<ITodoRepository, TodoRepository>();
         }
 
         //   This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
