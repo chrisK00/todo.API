@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using todo.API.Dtos;
-using todo.API.Models;
+using todo.Data.Models;
 
-namespace todo.API.Data
+namespace todo.Data
 {
     public interface ITodoRepository
     {

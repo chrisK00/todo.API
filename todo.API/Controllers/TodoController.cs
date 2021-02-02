@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
-using todo.API.Data;
 using todo.API.Dtos;
-using todo.API.Models;
+using todo.Data.Models;
+using todo.Data;
 
 namespace todo.API.Controllers
 {

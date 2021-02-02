@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace todo.API.Data
+namespace todo.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
