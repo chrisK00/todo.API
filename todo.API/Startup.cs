@@ -26,6 +26,7 @@ namespace todo.API
                 Configuration.GetConnectionString("Default")));
             services.AddCors();
             services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         //   This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

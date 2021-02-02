@@ -13,20 +13,21 @@ namespace todo.API.Controllers
     public class TodoController : Controller
     {
         private readonly ITodoRepository _repo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TodoController(ITodoRepository repo)
+        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork)
         {
             _repo = repo;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll() => Ok(await _repo.GetAll());
 
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodo(Guid id)
         {
-            var todo = await _repo.Get(id);
+            var todo = await _repo.GetById(id);
             if (todo == null)
             {
                 return NotFound();
@@ -36,7 +37,7 @@ namespace todo.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> PostTodo(TodoToAddDto todoToAddDto)
+        public async Task<IActionResult> UpdateTodo(TodoToAddDto todoToAddDto)
         {
             var todoToAdd = new Todo()
             {
@@ -46,6 +47,7 @@ namespace todo.API.Controllers
             };
             var createdTodo = await _repo.Add(todoToAdd);
 
+            await _unitOfWork.Commit();
             //Return a 201 and where the item can be found
             return Created("Todo", createdTodo.Id);
         }
@@ -59,25 +61,26 @@ namespace todo.API.Controllers
             {
                 return NotFound();
             }
+            await _unitOfWork.Commit();
             return NoContent();
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutTodo(TodoToUpdateDto todoToUpdateDto)
+        public async Task<IActionResult> UpdateTodo(TodoToUpdateDto todoToUpdateDto)
         {
-            var todoToUpdate = new Todo
-            {
-                Title = todoToUpdateDto.Title,
-                Completed = todoToUpdateDto.Completed,
-                Description = todoToUpdateDto.Description
-            };
-            bool updated = await _repo.Update(todoToUpdate);
-            if (!updated)
+            var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
+            if (todoToUpdate == null)
             {
                 return NotFound();
             }
 
+            todoToUpdate.Title = todoToUpdateDto.Title;
+            todoToUpdate.Description = todoToUpdateDto.Description;
+            todoToUpdate.Completed = todoToUpdateDto.Completed;
+
+            await _unitOfWork.Commit();
             return NoContent();
+
         }
     }
 }
