@@ -54,7 +54,7 @@ namespace todo.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTodo(int id)
+        public async Task<IActionResult> DeleteTodo(Guid id)
         {
             //Check if the todo with that id actually exists in the db
             var todo = await _context.Todos.FindAsync(id);
