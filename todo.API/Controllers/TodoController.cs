@@ -55,12 +55,16 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-            bool deleted = await _repo.Delete(id);
-
-            if (!deleted)
+            try
+            {
+                await _repo.Delete(id);
+            }
+            catch
             {
                 return NotFound();
             }
+            await _repo.Delete(id);
+           
             await _unitOfWork.Commit();
             return NoContent();
         }

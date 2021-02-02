@@ -22,15 +22,14 @@ namespace todo.API.Data
             return todo;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task Delete(Guid id)
         {
             var todo = await _context.Todos.FindAsync(id);
             if (todo == null)
             {
-                return false;
+                throw new ArgumentException();
             }
             _context.Todos.Remove(todo);
-            return true;
         }
 
         /// <summary>

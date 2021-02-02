@@ -12,6 +12,6 @@ namespace todo.API.Data
         Task<List<Todo>> GetAll();
         Task<Todo> GetById(Guid id);
         Task<Todo> Add(Todo todo);
-        Task<bool> Delete(Guid id);
+        Task Delete(Guid id);
     }
 }
