@@ -37,7 +37,6 @@ namespace todo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostTodo(TodoDtoBase todoToAddDto)
         {
-
             var todoToAdd = new Todo()
             {
                 Title = todoToAddDto.Title,
@@ -87,6 +86,5 @@ namespace todo.API.Controllers
 
             return NoContent();
         }
-
     }
 }

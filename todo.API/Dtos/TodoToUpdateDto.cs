@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace todo.API.Dtos
 {
@@ -8,7 +8,7 @@ namespace todo.API.Dtos
     /// </summary>
     public class TodoToUpdateDto : TodoDtoBase
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public bool Completed { get; set; }
     }
 }
