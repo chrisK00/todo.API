@@ -53,6 +53,7 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
+//Use a global exception handler instead
             try
             {
                 await _repo.Delete(id);
