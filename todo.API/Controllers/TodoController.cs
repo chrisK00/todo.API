@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using todo.API.Dtos;
 using todo.Data.Models;
 using todo.Data;
+using AutoMapper;
 
 namespace todo.API.Controllers
 {
@@ -13,11 +14,13 @@ namespace todo.API.Controllers
     {
         private readonly ITodoRepository _repo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork)
+        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork,IMapper mapper)
         {
             _repo = repo;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -38,12 +41,8 @@ namespace todo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTodo(TodoToAddDto todoToAddDto)
         {
-            var todoToAdd = new Todo()
-            {
-                Title = todoToAddDto.Title,
-                Description = todoToAddDto.Description,
-                Completed = false
-            };
+            var todoToAdd = _mapper.Map<Todo>(todoToAddDto);
+         
             var createdTodo = await _repo.Add(todoToAdd);
 
             await _unitOfWork.Commit();
