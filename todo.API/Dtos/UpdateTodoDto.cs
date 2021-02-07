@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace todo.API.Dtos
 {
-    public class TodoToUpdateDto
+    public class UpdateTodoDto
     {
         public Guid Id { get; set; }
 

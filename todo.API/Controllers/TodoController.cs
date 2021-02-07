@@ -16,7 +16,7 @@ namespace todo.API.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork,IMapper mapper)
+        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repo = repo;
             _unitOfWork = unitOfWork;
@@ -39,10 +39,10 @@ namespace todo.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddTodo(TodoToAddDto todoToAddDto)
+        public async Task<IActionResult> AddTodo(AddTodoDto todoToAddDto)
         {
             var todoToAdd = _mapper.Map<Todo>(todoToAddDto);
-         
+
             var createdTodo = await _repo.Add(todoToAdd);
 
             await _unitOfWork.Commit();
@@ -53,7 +53,7 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-//Use a global exception handler instead
+            //Use a global exception handler instead
             try
             {
                 await _repo.Delete(id);
@@ -63,13 +63,13 @@ namespace todo.API.Controllers
                 return NotFound();
             }
             await _repo.Delete(id);
-           
+
             await _unitOfWork.Commit();
             return NoContent();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateTodo(TodoToUpdateDto todoToUpdateDto)
+        public async Task<IActionResult> UpdateTodo(UpdateTodoDto todoToUpdateDto)
         {
             var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
             if (todoToUpdate == null)
