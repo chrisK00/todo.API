@@ -10,6 +10,7 @@ namespace todo.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //controller base?
     public class TodoController : Controller
     {
         private readonly ITodoRepository _repo;
@@ -23,9 +24,18 @@ namespace todo.API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets all existing todos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAll() => Ok(await _repo.GetAll());
 
+        /// <summary>
+        /// Returns a todo if found
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodo(Guid id)
         {
@@ -36,10 +46,14 @@ namespace todo.API.Controllers
             }
             return Ok(todo);
         }
-
-
+       
+        /// <summary>
+        /// Adds a new todo to the Db
+        /// </summary>
+        /// <param name="todoToAddDto"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddTodo(AddTodoDto todoToAddDto)
+        public async Task<IActionResult> AddTodo([FromBody] AddTodoDto todoToAddDto)
         {
             var todoToAdd = _mapper.Map<Todo>(todoToAddDto);
 
@@ -50,6 +64,11 @@ namespace todo.API.Controllers
             return Created("Todo", createdTodo.Id);
         }
 
+        /// <summary>
+        /// Deletes a todo using its guid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
@@ -68,8 +87,13 @@ namespace todo.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Updates an existing todo by assigning the old props to the one sent in
+        /// </summary>
+        /// <param name="todoToUpdateDto"></param>
+        /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateTodo(UpdateTodoDto todoToUpdateDto)
+        public async Task<IActionResult> UpdateTodo([FromBody]UpdateTodoDto todoToUpdateDto)
         {
             var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
             if (todoToUpdate == null)

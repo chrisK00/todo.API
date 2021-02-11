@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>todo.API</name>
+    </assembly>
+    <members>
+        <member name="M:todo.API.Controllers.TodoController.GetAll">
+            <summary>
+            Gets all existing todos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:todo.API.Controllers.TodoController.GetTodo(System.Guid)">
+            <summary>
+            Returns a todo if found
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:todo.API.Controllers.TodoController.AddTodo(todo.API.Dtos.AddTodoDto)">
+            <summary>
+            Adds a new todo to the Db
+            </summary>
+            <param name="todoToAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:todo.API.Controllers.TodoController.DeleteTodo(System.Guid)">
+            <summary>
+            Deletes a todo using its guid
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:todo.API.Controllers.TodoController.UpdateTodo(todo.API.Dtos.UpdateTodoDto)">
+            <summary>
+            Updates an existing todo by assigning the old props to the one sent in
+            </summary>
+            <param name="todoToUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:todo.API.Dtos.AddTodoDto">
+            <summary>
+            Data Transfer Object
+            Whenever a new todo is added we dont want the user to specify the id but rather the Db do it
+            </summary>
+        </member>
+    </members>
+</doc>
