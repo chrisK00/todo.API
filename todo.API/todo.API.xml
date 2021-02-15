@@ -17,9 +17,9 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.AddTodo(todo.API.Dtos.AddTodoDto)">
+        <member name="M:todo.API.Controllers.TodoController.AddTodo(todo.Logic.Dtos.AddTodoDto)">
             <summary>
-            Adds a new todo to the Db
+            Returns a 201 and where the item can be found
             </summary>
             <param name="todoToAddDto"></param>
             <returns></returns>
@@ -31,18 +31,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.UpdateTodo(todo.API.Dtos.UpdateTodoDto)">
+        <member name="M:todo.API.Controllers.TodoController.UpdateTodo(todo.Logic.Dtos.UpdateTodoDto)">
             <summary>
             Updates an existing todo by assigning the old props to the one sent in
             </summary>
             <param name="todoToUpdateDto"></param>
             <returns></returns>
-        </member>
-        <member name="T:todo.API.Dtos.AddTodoDto">
-            <summary>
-            Data Transfer Object
-            Whenever a new todo is added we dont want the user to specify the id but rather the Db do it
-            </summary>
         </member>
     </members>
 </doc>

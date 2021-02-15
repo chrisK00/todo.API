@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace todo.API.Dtos
+namespace todo.Logic.Dtos
 {
     /// <summary>
     /// Data Transfer Object

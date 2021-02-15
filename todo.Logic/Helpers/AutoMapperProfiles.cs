@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using todo.API.Dtos;
 using todo.Data.Models;
+using todo.Logic.Dtos;
 
-namespace todo.API.Helpers
+namespace todo.Logic.Helpers
 {
     public class AutoMapperProfiles : Profile
     {

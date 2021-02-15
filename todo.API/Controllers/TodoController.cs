@@ -14,9 +14,9 @@ namespace todo.API.Controllers
     //controller base?
     public class TodoController : Controller
     {
-        private readonly TodoService _todoService;
+        private readonly ITodoService _todoService;
 
-        public TodoController(TodoService todoService)
+        public TodoController(ITodoService todoService)
         {
             _todoService = todoService;
         }
@@ -26,7 +26,7 @@ namespace todo.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _repo.GetAll());
+        public async Task<IActionResult> GetAll() => Ok(await _todoService.GetAllTodos());
 
         /// <summary>
         /// Returns a todo if found
@@ -36,30 +36,22 @@ namespace todo.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodo(Guid id)
         {
-            var todo = await _repo.GetById(id);
+            var todo = await _todoService.GetTodo(id);
             if (todo == null)
             {
                 return NotFound();
             }
             return Ok(todo);
         }
-       
+
         /// <summary>
-        /// Adds a new todo to the Db
+        /// Returns a 201 and where the item can be found
         /// </summary>
         /// <param name="todoToAddDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddTodo([FromBody] AddTodoDto todoToAddDto)
-        {
-            var todoToAdd = _mapper.Map<Todo>(todoToAddDto);
-
-            var createdTodo = await _repo.Add(todoToAdd);
-
-            await _unitOfWork.Commit();
-            //Return a 201 and where the item can be found
-            return Created("Todo", createdTodo.Id);
-        }
+        public async Task<IActionResult> AddTodo([FromBody] AddTodoDto todoToAddDto) =>
+             Created("Todo", await _todoService.AddTodo(todoToAddDto));
 
         /// <summary>
         /// Deletes a todo using its guid
@@ -69,18 +61,10 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-            //Use a global exception handler instead
-            try
-            {
-                await _repo.Delete(id);
-            }
-            catch
+            if (!await _todoService.DeleteTodo(id))
             {
                 return NotFound();
             }
-            await _repo.Delete(id);
-
-            await _unitOfWork.Commit();
             return NoContent();
         }
 
@@ -90,28 +74,13 @@ namespace todo.API.Controllers
         /// <param name="todoToUpdateDto"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateTodo([FromBody]UpdateTodoDto todoToUpdateDto)
+        public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodoDto todoToUpdateDto)
         {
             if (!await _todoService.UpdateTodo(todoToUpdateDto))
             {
                 return NotFound();
             }
             return NoContent();
-
-
-            /* var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
-             if (todoToUpdate == null)
-             {
-                 return NotFound();
-             }
-
-             todoToUpdate.Title = todoToUpdateDto.Title;
-             todoToUpdate.Description = todoToUpdateDto.Description;
-             todoToUpdate.Completed = todoToUpdateDto.Completed;
-
-             await _unitOfWork.Commit();
-             return NoContent();
-            */
         }
 
         //Todo 
