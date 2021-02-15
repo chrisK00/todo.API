@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.IO;
 using todo.API.Controllers;
 using todo.Data;
+using todo.Logic.Services;
 
 namespace todo.API
 {
@@ -39,7 +40,8 @@ namespace todo.API
             services.AddCors();
             services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<ITodoRepository, TodoRepository>();
+            services.AddScoped<ITodoService, TodoService>();
+            services.AddSingleton(Log.Logger);
         }
 
         //   This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

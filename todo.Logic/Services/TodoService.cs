@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,14 @@ namespace todo.Logic.Services
         private readonly ITodoRepository _repo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public TodoService(ITodoRepository repo, IUnitOfWork unitOfWork, IMapper mapper)
+        public TodoService(ITodoRepository repo, IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
             _repo = repo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Todo>> GetAllTodos() => await _repo.GetAll();
@@ -51,8 +54,9 @@ namespace todo.Logic.Services
             {
                 await _repo.Delete(id);
             }
-            catch
+            catch(Exception e)
             {
+                _logger.Error("Not found todo", e.Message);
                 return false;
             }
 
