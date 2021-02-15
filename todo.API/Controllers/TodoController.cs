@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using todo.API.Dtos;
 using todo.Data.Models;
 using todo.Data;
 using AutoMapper;
+using todo.Logic.Services;
+using todo.Logic.Dtos;
 
 namespace todo.API.Controllers
 {
@@ -13,15 +14,11 @@ namespace todo.API.Controllers
     //controller base?
     public class TodoController : Controller
     {
-        private readonly ITodoRepository _repo;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly TodoService _todoService;
 
-        public TodoController(ITodoRepository repo, IUnitOfWork unitOfWork, IMapper mapper)
+        public TodoController(TodoService todoService)
         {
-            _repo = repo;
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _todoService = todoService;
         }
 
         /// <summary>
@@ -95,19 +92,29 @@ namespace todo.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateTodo([FromBody]UpdateTodoDto todoToUpdateDto)
         {
-            var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
-            if (todoToUpdate == null)
+            if (!await _todoService.UpdateTodo(todoToUpdateDto))
             {
                 return NotFound();
             }
-
-            todoToUpdate.Title = todoToUpdateDto.Title;
-            todoToUpdate.Description = todoToUpdateDto.Description;
-            todoToUpdate.Completed = todoToUpdateDto.Completed;
-
-            await _unitOfWork.Commit();
             return NoContent();
 
+
+            /* var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
+             if (todoToUpdate == null)
+             {
+                 return NotFound();
+             }
+
+             todoToUpdate.Title = todoToUpdateDto.Title;
+             todoToUpdate.Description = todoToUpdateDto.Description;
+             todoToUpdate.Completed = todoToUpdateDto.Completed;
+
+             await _unitOfWork.Commit();
+             return NoContent();
+            */
         }
+
+        //Todo 
+        //patch - completed todo?
     }
 }

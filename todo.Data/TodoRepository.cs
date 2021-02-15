@@ -14,7 +14,7 @@ namespace todo.Data
         {
             _context = context;
         }
-
+        
         public async Task<Todo> Add(Todo todo)
         {
             await _context.Todos.AddAsync(todo);
