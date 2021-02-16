@@ -28,11 +28,9 @@ namespace todo.Logic.Services
 
         public async Task<IEnumerable<Todo>> GetAllTodos() => await _repo.GetAll();
 
-        public async Task<Todo> GetTodo(Guid id)
-        {
-            var todo = await _repo.GetById(id);
-            return todo;
-        }
+        public async Task<Todo> GetTodo(Guid id) => await _repo.GetById(id);
+
+
 
         /// <summary>
         /// Adds a new todo to the Db 
@@ -53,7 +51,7 @@ namespace todo.Logic.Services
             {
                 await _repo.Delete(id);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error("Not found todo", e.Message);
                 return false;
