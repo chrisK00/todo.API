@@ -31,8 +31,7 @@ namespace todo.Logic.Services
         public async Task<Todo> GetTodo(Guid id)
         {
             var todo = await _repo.GetById(id);
-            //if todo is null return null otherwise return todo
-            return todo ?? null;
+            return todo;
         }
 
         /// <summary>
