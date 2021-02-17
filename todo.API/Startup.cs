@@ -50,17 +50,14 @@ namespace todo.API
         {
             if (env.IsDevelopment())
             {
-                // app.UseMiddleware<ErrorHandlerMiddleware>();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "todo.API v1"));
             }
-            else
-            {
-                app.UseMiddleware<ErrorHandlerMiddleware>();
-            }
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
