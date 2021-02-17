@@ -5,7 +5,7 @@ using todo.Data.Models;
 
 namespace todo.Data
 {
-    public interface ITodoRepository
+    public interface ITodosRepository
     {
         Task<List<Todo>> GetAll();
         Task<Todo> GetById(Guid id);

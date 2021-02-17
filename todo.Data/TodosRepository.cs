@@ -6,11 +6,11 @@ using todo.Data.Models;
 
 namespace todo.Data
 {
-    public class TodoRepository : ITodoRepository
+    public class TodosRepository : ITodosRepository
     {
         private readonly DataContext _context;
 
-        public TodoRepository(DataContext context)
+        public TodosRepository(DataContext context)
         {
             _context = context;
         }
