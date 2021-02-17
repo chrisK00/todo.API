@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using todo.Data.Models;
-using todo.Logic.Dtos;
+using todo.Logic.DTOS;
 
 namespace todo.Logic.Helpers
 {
@@ -8,7 +8,7 @@ namespace todo.Logic.Helpers
     {
         public AutoMapperProfiles()
         {
-          CreateMap<AddTodoDto, Todo>();
+          CreateMap<AddTodoDTO, Todo>();
         }
     }
 }

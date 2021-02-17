@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace todo.Logic.Dtos
+namespace todo.Logic.DTOS
 { 
-    public class UpdateTodoDto
+    public class UpdateTodoDTO
     {
         public Guid Id { get; set; }
 

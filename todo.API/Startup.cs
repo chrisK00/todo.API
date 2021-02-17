@@ -34,14 +34,14 @@ namespace todo.API
             });
             services.AddControllers();
 
-            services.AddAutoMapper(typeof(TodoController).Assembly);
+            services.AddAutoMapper(typeof(TodosController).Assembly);
             //Adding our datacontext to the DI container and specifying the name of the connection string (appsettings.json)
             services.AddDbContext<DataContext>(options => options.UseSqlite(
                 Configuration.GetConnectionString("Default")));
             services.AddCors();
-            services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<ITodosRepository, TodosRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<ITodosService, TodosService>();
             services.AddSingleton(Log.Logger);
         }
 
