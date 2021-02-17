@@ -9,6 +9,7 @@ using Serilog;
 using System;
 using System.IO;
 using todo.API.Controllers;
+using todo.API.Middleware;
 using todo.Data;
 using todo.Logic.Services;
 
@@ -49,9 +50,14 @@ namespace todo.API
         {
             if (env.IsDevelopment())
             {
+                // app.UseMiddleware<ErrorHandlerMiddleware>();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "todo.API v1"));
+            }
+            else
+            {
+                app.UseMiddleware<ErrorHandlerMiddleware>();
             }
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
