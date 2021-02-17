@@ -58,10 +58,7 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-            if (!await _todosService.DeleteTodo(id))
-            {
-                return NotFound();
-            }
+            await _todosService.DeleteTodo(id);
             return NoContent();
         }
 
@@ -73,10 +70,7 @@ namespace todo.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
         {
-            if (!await _todosService.UpdateTodo(todoToUpdateDTO))
-            {
-                return NotFound();
-            }
+            await _todosService.UpdateTodo(todoToUpdateDTO);
             return NoContent();
         }
 

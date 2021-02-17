@@ -26,7 +26,7 @@ namespace todo.Data
             var todo = await _context.Todos.FindAsync(id);
             if (todo == null)
             {
-                throw new ArgumentException();
+                throw new KeyNotFoundException();
             }
             _context.Todos.Remove(todo);
         }

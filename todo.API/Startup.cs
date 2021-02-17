@@ -11,7 +11,7 @@ using System.IO;
 using todo.API.Controllers;
 using todo.API.Middleware;
 using todo.Data;
-using todo.Logic.Services;
+using todo.Logic.Helpers;
 
 namespace todo.API
 {
@@ -27,22 +27,22 @@ namespace todo.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureTodoServices();
+
+            services.AddAutoMapper(typeof(TodosController).Assembly);
+
+            //Adding our datacontext to the DI container and specifying the name of the connection string (appsettings.json)
+            services.AddDbContext<DataContext>(options => options.UseSqlite(
+                Configuration.GetConnectionString("Default")));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "todo.API", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "todo.API.xml"));
             });
-            services.AddControllers();
 
-            services.AddAutoMapper(typeof(TodosController).Assembly);
-            //Adding our datacontext to the DI container and specifying the name of the connection string (appsettings.json)
-            services.AddDbContext<DataContext>(options => options.UseSqlite(
-                Configuration.GetConnectionString("Default")));
             services.AddCors();
-            services.AddScoped<ITodosRepository, TodosRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITodosService, TodosService>();
-            services.AddSingleton(Log.Logger);
+            services.AddControllers();
         }
 
         //   This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,17 +50,14 @@ namespace todo.API
         {
             if (env.IsDevelopment())
             {
-                // app.UseMiddleware<ErrorHandlerMiddleware>();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "todo.API v1"));
             }
-            else
-            {
-                app.UseMiddleware<ErrorHandlerMiddleware>();
-            }
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -9,9 +9,9 @@ namespace todo.Logic.Services
     public interface ITodosService
     {
         Task<Guid> AddTodo(AddTodoDTO todoToAddDto);
-        Task<bool> DeleteTodo(Guid id);
+        Task DeleteTodo(Guid id);
         Task<IEnumerable<Todo>> GetAllTodos();
         Task<Todo> GetTodo(Guid id);
-        Task<bool> UpdateTodo(UpdateTodoDTO todoToUpdateDto);
+        Task UpdateTodo(UpdateTodoDTO todoToUpdateDto);
     }
 }

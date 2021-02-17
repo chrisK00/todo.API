@@ -29,7 +29,7 @@ namespace todo.API.Middleware
             } //If request is not succesful
             catch (Exception error)
             {
-                _logger.Error("Error", error.Message);
+               
                 var response = context.Response;
                 response.ContentType = "application/json";
 
@@ -39,6 +39,7 @@ namespace todo.API.Middleware
                     KeyNotFoundException => (int)HttpStatusCode.NotFound,//not found 404
                     _ => (int)HttpStatusCode.InternalServerError,//any other error 500
                 };
+                _logger.Error(error?.Message);
                 //if the error isnt null send the error message in json format
                 var result = JsonSerializer.Serialize(new { message = error?.Message });
                 await response.WriteAsync(result);

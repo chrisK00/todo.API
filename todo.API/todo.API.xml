@@ -4,38 +4,38 @@
         <name>todo.API</name>
     </assembly>
     <members>
-        <member name="M:todo.API.Controllers.TodoController.GetAll">
+        <member name="M:todo.API.Controllers.TodosController.GetAll">
             <summary>
             Gets all existing todos
             </summary>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.GetTodo(System.Guid)">
+        <member name="M:todo.API.Controllers.TodosController.GetTodo(System.Guid)">
             <summary>
             Returns a todo if found
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.AddTodo(todo.Logic.Dtos.AddTodoDto)">
+        <member name="M:todo.API.Controllers.TodosController.AddTodo(todo.Logic.DTOS.AddTodoDTO)">
             <summary>
             Returns a 201 and where the item can be found
             </summary>
-            <param name="todoToAddDto"></param>
+            <param name="todoToAddDTO"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.DeleteTodo(System.Guid)">
+        <member name="M:todo.API.Controllers.TodosController.DeleteTodo(System.Guid)">
             <summary>
             Deletes a todo using its guid
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodoController.UpdateTodo(todo.Logic.Dtos.UpdateTodoDto)">
+        <member name="M:todo.API.Controllers.TodosController.UpdateTodo(todo.Logic.DTOS.UpdateTodoDTO)">
             <summary>
-            Updates an existing todo by assigning the old props to the one sent in
+            Updates an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
             </summary>
-            <param name="todoToUpdateDto"></param>
+            <param name="todoToUpdateDTO"></param>
             <returns></returns>
         </member>
     </members>
