@@ -1,24 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using todo.Data.Models;
-using todo.Data;
-using AutoMapper;
+using todo.Logic.DTOS;
 using todo.Logic.Services;
-using todo.Logic.Dtos;
 
 namespace todo.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     //controller base?
-    public class TodoController : Controller
+    public class TodosController : ControllerBase
     {
-        private readonly ITodoService _todoService;
+        private readonly ITodosService _todosService;
 
-        public TodoController(ITodoService todoService)
+        public TodosController(ITodosService todosService)
         {
-            _todoService = todoService;
+            _todosService = todosService;
         }
 
         /// <summary>
@@ -26,7 +23,7 @@ namespace todo.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _todoService.GetAllTodos());
+        public async Task<IActionResult> GetAll() => Ok(await _todosService.GetAllTodos());
 
         /// <summary>
         /// Returns a todo if found
@@ -36,7 +33,7 @@ namespace todo.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodo(Guid id)
         {
-            var todo = await _todoService.GetTodo(id);
+            var todo = await _todosService.GetTodo(id);
             if (todo == null)
             {
                 return NotFound();
@@ -47,11 +44,11 @@ namespace todo.API.Controllers
         /// <summary>
         /// Returns a 201 and where the item can be found
         /// </summary>
-        /// <param name="todoToAddDto"></param>
+        /// <param name="todoToAddDTO"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddTodo([FromBody] AddTodoDto todoToAddDto) =>
-             Created("Todo", await _todoService.AddTodo(todoToAddDto));
+        public async Task<IActionResult> AddTodo(AddTodoDTO todoToAddDTO) =>
+             Created("Todo", await _todosService.AddTodo(todoToAddDTO));
 
         /// <summary>
         /// Deletes a todo using its guid
@@ -61,7 +58,7 @@ namespace todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodo(Guid id)
         {
-            if (!await _todoService.DeleteTodo(id))
+            if (!await _todosService.DeleteTodo(id))
             {
                 return NotFound();
             }
@@ -69,14 +66,14 @@ namespace todo.API.Controllers
         }
 
         /// <summary>
-        /// Updates an existing todo by assigning the old props to the one sent in
+        /// Updates an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
         /// </summary>
-        /// <param name="todoToUpdateDto"></param>
+        /// <param name="todoToUpdateDTO"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodoDto todoToUpdateDto)
+        public async Task<IActionResult> UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
         {
-            if (!await _todoService.UpdateTodo(todoToUpdateDto))
+            if (!await _todosService.UpdateTodo(todoToUpdateDTO))
             {
                 return NotFound();
             }

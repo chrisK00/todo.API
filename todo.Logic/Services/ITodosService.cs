@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using todo.Data.Models;
-using todo.Logic.Dtos;
+using todo.Logic.DTOS;
 
 namespace todo.Logic.Services
 {
-    public interface ITodoService
+    public interface ITodosService
     {
-        Task<Guid> AddTodo(AddTodoDto todoToAddDto);
+        Task<Guid> AddTodo(AddTodoDTO todoToAddDto);
         Task<bool> DeleteTodo(Guid id);
         Task<IEnumerable<Todo>> GetAllTodos();
         Task<Todo> GetTodo(Guid id);
-        Task<bool> UpdateTodo(UpdateTodoDto todoToUpdateDto);
+        Task<bool> UpdateTodo(UpdateTodoDTO todoToUpdateDto);
     }
 }

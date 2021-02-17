@@ -7,18 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using todo.Data;
 using todo.Data.Models;
-using todo.Logic.Dtos;
+using todo.Logic.DTOS;
 
 namespace todo.Logic.Services
 {
-    public class TodoService : ITodoService
+    public class TodosService : ITodosService
     {
-        private readonly ITodoRepository _repo;
+        private readonly ITodosRepository _repo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
-        public TodoService(ITodoRepository repo, IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
+        public TodosService(ITodosRepository repo, IUnitOfWork unitOfWork, IMapper mapper, ILogger logger)
         {
             _repo = repo;
             _unitOfWork = unitOfWork;
@@ -35,11 +35,11 @@ namespace todo.Logic.Services
         /// <summary>
         /// Adds a new todo to the Db 
         /// </summary>
-        /// <param name="todoToAddDto"></param>
+        /// <param name="todoToAddDTO"></param>
         /// <returns></returns>
-        public async Task<Guid> AddTodo(AddTodoDto todoToAddDto)
+        public async Task<Guid> AddTodo(AddTodoDTO todoToAddDTO)
         {
-            var todoToAdd = _mapper.Map<Todo>(todoToAddDto);
+            var todoToAdd = _mapper.Map<Todo>(todoToAddDTO);
             var createdTodo = await _repo.Add(todoToAdd);
             await _unitOfWork.Commit();
             return createdTodo.Id;
@@ -61,16 +61,16 @@ namespace todo.Logic.Services
             return true;
         }
 
-        public async Task<bool> UpdateTodo(UpdateTodoDto todoToUpdateDto)
+        public async Task<bool> UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
         {
-            var todoToUpdate = await _repo.GetById(todoToUpdateDto.Id);
+            var todoToUpdate = await _repo.GetById(todoToUpdateDTO.Id);
             if (todoToUpdate == null)
             {
                 return false;
             }
-            todoToUpdate.Title = todoToUpdateDto.Title;
-            todoToUpdate.Description = todoToUpdateDto.Description;
-            todoToUpdate.Completed = todoToUpdateDto.Completed;
+            todoToUpdate.Title = todoToUpdateDTO.Title;
+            todoToUpdate.Description = todoToUpdateDTO.Description;
+            todoToUpdate.Completed = todoToUpdateDTO.Completed;
 
             await _unitOfWork.Commit();
             return true;
