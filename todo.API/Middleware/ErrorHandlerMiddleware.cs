@@ -32,7 +32,7 @@ namespace todo.API.Middleware
                
                 var response = context.Response;
                 response.ContentType = "application/json";
-
+                
                 response.StatusCode = error switch
                 {
                     AppException => (int)HttpStatusCode.BadRequest,//400 bad req custom app error

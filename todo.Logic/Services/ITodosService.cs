@@ -8,10 +8,11 @@ namespace todo.Logic.Services
 {
     public interface ITodosService
     {
-        Task<Guid> AddTodo(AddTodoDTO todoToAddDto);
+        Task<Guid> AddTodo(AddTodoDTO todoToAddDTO);
         Task DeleteTodo(Guid id);
         Task<IEnumerable<Todo>> GetAllTodos();
         Task<Todo> GetTodo(Guid id);
-        Task UpdateTodo(UpdateTodoDTO todoToUpdateDto);
+        Task ReplaceTodo(ReplaceTodoDTO todoToReplaceDTO);
+        Task UpdateTodo(UpdateTodoDTO todoToUpdateDTO);
     }
 }
