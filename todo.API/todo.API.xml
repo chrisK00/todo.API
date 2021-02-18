@@ -31,11 +31,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:todo.API.Controllers.TodosController.UpdateTodo(todo.Logic.DTOS.UpdateTodoDTO)">
+        <member name="M:todo.API.Controllers.TodosController.ReplaceTodo(todo.Logic.DTOS.ReplaceTodoDTO)">
             <summary>
-            Updates an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
+            Replaces an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
             </summary>
-            <param name="todoToUpdateDTO"></param>
+            <param name="todoToReplaceDTO"></param>
             <returns></returns>
         </member>
     </members>

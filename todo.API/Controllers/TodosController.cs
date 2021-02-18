@@ -63,18 +63,27 @@ namespace todo.API.Controllers
         }
 
         /// <summary>
-        /// Updates an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
+        /// Replaces an existing todo by assigning the old props to the one sent in. We only need [FromBody] if it isnt an entity in the incoming request
+        /// </summary>
+        /// <param name="todoToReplaceDTO"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IActionResult> ReplaceTodo(ReplaceTodoDTO todoToReplaceDTO)
+        {
+            await _todosService.ReplaceTodo(todoToReplaceDTO);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates a todo
         /// </summary>
         /// <param name="todoToUpdateDTO"></param>
         /// <returns></returns>
-        [HttpPut]
-        public async Task<IActionResult> UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
+       [HttpPatch]
+       public async Task<IActionResult> UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
         {
             await _todosService.UpdateTodo(todoToUpdateDTO);
             return NoContent();
         }
-
-        //Todo 
-        //patch - completed todo?
     }
 }

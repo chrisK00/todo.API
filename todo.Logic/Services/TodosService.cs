@@ -47,6 +47,20 @@ namespace todo.Logic.Services
             await _unitOfWork.Commit();
         }
 
+        public async Task ReplaceTodo(ReplaceTodoDTO todoToReplaceDTO)
+        {
+            var todoToUpdate = await _repo.GetById(todoToReplaceDTO.Id);
+            if (todoToUpdate == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            todoToUpdate.Title = todoToReplaceDTO.Title;
+            todoToUpdate.Description = todoToReplaceDTO.Description;
+            todoToUpdate.Completed = todoToReplaceDTO.Completed;
+
+            await _unitOfWork.Commit();
+        }
+
         public async Task UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
         {
             var todoToUpdate = await _repo.GetById(todoToUpdateDTO.Id);
@@ -54,12 +68,13 @@ namespace todo.Logic.Services
             {
                 throw new KeyNotFoundException();
             }
-            todoToUpdate.Title = todoToUpdateDTO.Title;
-            todoToUpdate.Description = todoToUpdateDTO.Description;
-            todoToUpdate.Completed = todoToUpdateDTO.Completed;
+
+            //Ef wont track in case of property being null
+            todoToUpdate.Title = todoToUpdateDTO.Title ?? todoToUpdate.Title;
+            todoToUpdate.Completed = todoToUpdateDTO.Completed ?? todoToUpdate.Completed;
+            todoToUpdate.Description = todoToUpdateDTO.Description ?? todoToUpdate.Description;
 
             await _unitOfWork.Commit();
         }
-
     }
 }
