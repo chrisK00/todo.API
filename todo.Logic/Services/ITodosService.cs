@@ -12,7 +12,7 @@ namespace todo.Logic.Services
         Task DeleteTodo(Guid id);
         Task<IEnumerable<Todo>> GetAllTodos();
         Task<Todo> GetTodo(Guid id);
-        Task ReplaceTodo(ReplaceTodoDTO todoToReplaceDTO);
-        Task UpdateTodo(UpdateTodoDTO todoToUpdateDTO);
+        Task ReplaceTodo(Guid id, ReplaceTodoDTO todoToReplaceDTO);
+        Task UpdateTodo(Guid id, UpdateTodoDTO todoToUpdateDTO);
     }
 }

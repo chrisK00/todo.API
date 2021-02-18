@@ -47,9 +47,9 @@ namespace todo.Logic.Services
             await _unitOfWork.Commit();
         }
 
-        public async Task ReplaceTodo(ReplaceTodoDTO todoToReplaceDTO)
+        public async Task ReplaceTodo(Guid id, ReplaceTodoDTO todoToReplaceDTO)
         {
-            var todoToUpdate = await _repo.GetById(todoToReplaceDTO.Id);
+            var todoToUpdate = await _repo.GetById(id);
             if (todoToUpdate == null)
             {
                 throw new KeyNotFoundException();
@@ -61,9 +61,9 @@ namespace todo.Logic.Services
             await _unitOfWork.Commit();
         }
 
-        public async Task UpdateTodo(UpdateTodoDTO todoToUpdateDTO)
+        public async Task UpdateTodo(Guid id, UpdateTodoDTO todoToUpdateDTO)
         {
-            var todoToUpdate = await _repo.GetById(todoToUpdateDTO.Id);
+            var todoToUpdate = await _repo.GetById(id);
             if (todoToUpdate == null)
             {
                 throw new KeyNotFoundException();
