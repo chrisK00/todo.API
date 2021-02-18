@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>1af799ec-d24a-4988-b3b6-fc051d6299b3</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,6 +32,12 @@
   <ItemGroup>
     <ProjectReference Include="..\todo.Data\todo.Data.csproj" />
     <ProjectReference Include="..\todo.Logic\todo.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Todo.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
