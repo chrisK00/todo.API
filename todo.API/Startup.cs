@@ -12,6 +12,7 @@ using todo.API.Controllers;
 using todo.API.Middleware;
 using todo.Data;
 using todo.Logic.Helpers;
+using todo.Logic.Services;
 
 namespace todo.API
 {
@@ -29,7 +30,8 @@ namespace todo.API
         {
             services.ConfigureTodoServices();
 
-            services.AddAutoMapper(typeof(TodosController).Assembly);
+            //the assembly where it will be mapping
+            services.AddAutoMapper(typeof(TodosService).Assembly);
 
             //Adding our datacontext to the DI container and specifying the name of the connection string (appsettings.json)
             services.AddDbContext<DataContext>(options => options.UseSqlite(
