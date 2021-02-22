@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using todo.Data.Models;
 using todo.Logic.DTOS;
 using todo.Logic.Services;
 
@@ -23,7 +25,7 @@ namespace todo.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _todosService.GetAllTodos());
+        public async Task<ActionResult<IEnumerable<Todo>>> GetAll() => Ok(await _todosService.GetAllTodos());
 
         /// <summary>
         /// Returns a todo if found
@@ -31,7 +33,7 @@ namespace todo.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTodo(Guid id)
+        public async Task<ActionResult<Todo>> GetTodo(Guid id)
         {
             var todo = await _todosService.GetTodo(id);
             if (todo == null)
