@@ -25,7 +25,7 @@ namespace todo.API
             try
             {
                 var context = services.GetRequiredService<DataContext>();
-                if (context.Todos.Any())
+                if (!context.Todos.Any())
                 {
                     Seed.SeedTodos(context);
                 }
