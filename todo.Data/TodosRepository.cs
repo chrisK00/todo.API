@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using todo.Data.Models;
 
 namespace todo.Data
@@ -14,7 +14,7 @@ namespace todo.Data
         {
             _context = context;
         }
-        
+
         public async Task<Todo> Add(Todo todo)
         {
             await _context.Todos.AddAsync(todo);
@@ -39,6 +39,5 @@ namespace todo.Data
         public async Task<Todo> GetById(Guid id) => await _context.Todos.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<Todo>> GetAll() => await _context.Todos.ToListAsync();
-
     }
 }

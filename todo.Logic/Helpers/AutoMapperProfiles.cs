@@ -8,7 +8,7 @@ namespace todo.Logic.Helpers
     {
         public AutoMapperProfiles()
         {
-          CreateMap<AddTodoDTO, Todo>();
+            CreateMap<AddTodoDTO, Todo>();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using todo.Data.Models;
 using todo.Logic.DTOS;
 using todo.Logic.Services;
@@ -73,7 +73,7 @@ namespace todo.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> ReplaceTodo(Guid id, [FromBody] ReplaceTodoDTO todoToReplaceDTO)
         {
-            await _todosService.ReplaceTodo(id,todoToReplaceDTO);
+            await _todosService.ReplaceTodo(id, todoToReplaceDTO);
             return NoContent();
         }
 
@@ -83,10 +83,10 @@ namespace todo.API.Controllers
         /// <param name="todoToUpdateDTO"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-       [HttpPatch("{id}")]
-       public async Task<IActionResult> UpdateTodo(Guid id,[FromBody] UpdateTodoDTO todoToUpdateDTO)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateTodo(Guid id, [FromBody] UpdateTodoDTO todoToUpdateDTO)
         {
-            await _todosService.UpdateTodo(id,todoToUpdateDTO);
+            await _todosService.UpdateTodo(id, todoToUpdateDTO);
             return NoContent();
         }
     }

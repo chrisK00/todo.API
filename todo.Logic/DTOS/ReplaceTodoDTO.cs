@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace todo.Logic.DTOS
-{ 
+{
     public class ReplaceTodoDTO
     {
-
         [MinLength(1)]
         public string Title { get; set; }
 

@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using todo.Data;
 using todo.Data.Models;
 using todo.Logic.DTOS;
@@ -29,7 +26,7 @@ namespace todo.Logic.Services
         public async Task<Todo> GetTodo(Guid id) => await _repo.GetById(id);
 
         /// <summary>
-        /// Adds a new todo to the Db 
+        /// Adds a new todo to the Db
         /// </summary>
         /// <param name="todoToAddDTO"></param>
         /// <returns></returns>

@@ -12,8 +12,5 @@ namespace todo.Data
         }
 
         public async Task Commit() => await _context.SaveChangesAsync();
-
-       
-
     }
 }

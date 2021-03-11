@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,10 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Serilog;
-using System;
-using System.IO;
-using todo.API.Controllers;
 using todo.API.Middleware;
 using todo.Data;
 using todo.Logic.Helpers;
@@ -63,7 +61,7 @@ namespace todo.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-           
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

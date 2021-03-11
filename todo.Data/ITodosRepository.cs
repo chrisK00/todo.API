@@ -8,8 +8,11 @@ namespace todo.Data
     public interface ITodosRepository
     {
         Task<List<Todo>> GetAll();
+
         Task<Todo> GetById(Guid id);
+
         Task<Todo> Add(Todo todo);
+
         Task Delete(Guid id);
     }
 }
