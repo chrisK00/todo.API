@@ -28,7 +28,7 @@ namespace todo.API
             catch (Exception error)
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(error.Message, "Seeding Error");
+                logger.LogError(error, "Seeding Error");
             }
             host.Run();
         }

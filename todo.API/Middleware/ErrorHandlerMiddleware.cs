@@ -37,7 +37,8 @@ namespace todo.API.Middleware
                     KeyNotFoundException => (int)HttpStatusCode.NotFound,//not found 404
                     _ => (int)HttpStatusCode.InternalServerError,//any other error 500
                 };
-                _logger.LogError(error?.Message);
+
+                _logger.LogError(error, error.Message);
                 //if the error isnt null send the error message in json format
                 var result = JsonSerializer.Serialize(new { message = error?.Message });
                 await response.WriteAsync(result);
