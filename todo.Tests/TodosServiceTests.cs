@@ -16,12 +16,14 @@ namespace todo.Tests
         private readonly Mock<IUnitOfWork> _uow;
         private readonly MapperConfiguration _mapper;
         private readonly ITodosService _todosService;
+        private readonly Guid _todoId;
 
         public TodosServiceTests()
         {
             _todosRepo = new Mock<ITodosRepository>();
             _uow = new Mock<IUnitOfWork>();
             _mapper = new MapperConfiguration(c => c.AddProfile<AutoMapperProfiles>());
+            _todoId = Guid.NewGuid();
 
             SetupData();
 
@@ -29,18 +31,17 @@ namespace todo.Tests
         }
 
         private void SetupData()
-        {
-            var guid = Guid.Parse("69F720212993462DB69563C1B61349D1");
-            _todosRepo.Setup(x => x.GetById(guid)).ReturnsAsync(
-                new Todo { Id = Guid.Parse("69F720212993462DB69563C1B61349D1") });
+        {        
+            _todosRepo.Setup(x => x.GetById(_todoId)).ReturnsAsync(
+                new Todo { Id = _todoId });
         }
 
         [Fact]
         public async Task Should_Return_Todo_If_Exists()
         {
-            var result = await _todosService.GetTodo(Guid.Parse("69F720212993462DB69563C1B61349D1"));
+            var result = await _todosService.GetTodo(_todoId);
 
-            Assert.Equal(result.Id, Guid.Parse("69F720212993462DB69563C1B61349D1"));
+            Assert.Equal(result.Id, _todoId);
         }
     }
 }
