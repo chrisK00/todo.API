@@ -4,6 +4,7 @@ using AutoMapper;
 using Moq;
 using todo.Data;
 using todo.Data.Models;
+using todo.Logic.DTOS;
 using todo.Logic.Helpers;
 using todo.Logic.Services;
 using Xunit;
@@ -34,6 +35,7 @@ namespace todo.Tests
         {        
             _todosRepo.Setup(x => x.GetById(_todoId)).ReturnsAsync(
                 new Todo { Id = _todoId });
+
         }
 
         [Fact]
@@ -42,6 +44,15 @@ namespace todo.Tests
             var result = await _todosService.GetTodo(_todoId);
 
             Assert.Equal(result.Id, _todoId);
+            Assert.NotEqual(result.Id, Guid.NewGuid());
+        }
+
+        [Fact]
+        public async Task AddTodo_Should_Return_New_Guid()
+        {
+            var result = await _todosService.AddTodo(new AddTodoDTO { Title = "Hi" });
+
+            Assert.NotEqual(result, Guid.Empty);
         }
     }
 }
