@@ -15,11 +15,7 @@ namespace todo.Data
             _context = context;
         }
 
-        public Task Add(Todo todo)
-        {
-            _context.Todos.AddAsync(todo);
-            return Task.CompletedTask;
-        }
+        public Task Add(Todo todo) => _context.Todos.AddAsync(todo).AsTask();
 
         public async Task Delete(Guid id)
         {
@@ -31,8 +27,8 @@ namespace todo.Data
             _context.Todos.Remove(todo);
         }
 
-        public async Task<Todo> GetById(Guid id) =>
-            await _context.Todos.FindAsync(id);
+        public Task<Todo> GetById(Guid id) =>
+             _context.Todos.FirstOrDefaultAsync(t => t.Id == id);
 
         public Task<List<Todo>> GetAll() => _context.Todos.ToListAsync();
     }
