@@ -33,9 +33,10 @@ namespace todo.Logic.Services
         public async Task<Guid> AddTodo(AddTodoDTO todoToAddDTO)
         {
             var todoToAdd = _mapper.Map<Todo>(todoToAddDTO);
-            var createdTodo = await _repo.Add(todoToAdd);
+            todoToAdd.Id = Guid.NewGuid();
+            await _repo.Add(todoToAdd);
             await _unitOfWork.Commit();
-            return createdTodo.Id;
+            return todoToAdd.Id;
         }
 
         public async Task DeleteTodo(Guid id)

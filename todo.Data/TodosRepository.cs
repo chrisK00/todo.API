@@ -15,10 +15,10 @@ namespace todo.Data
             _context = context;
         }
 
-        public async Task<Todo> Add(Todo todo)
+        public Task Add(Todo todo)
         {
-            await _context.Todos.AddAsync(todo);
-            return todo;
+            _context.Todos.AddAsync(todo);
+            return Task.CompletedTask;
         }
 
         public async Task Delete(Guid id)
@@ -31,13 +31,9 @@ namespace todo.Data
             _context.Todos.Remove(todo);
         }
 
-        /// <summary>
-        /// Returns null if not found
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<Todo> GetById(Guid id) => await _context.Todos.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Todo> GetById(Guid id) =>
+            await _context.Todos.FindAsync(id);
 
-        public async Task<List<Todo>> GetAll() => await _context.Todos.ToListAsync();
+        public Task<List<Todo>> GetAll() => _context.Todos.ToListAsync();
     }
 }
