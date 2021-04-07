@@ -10,7 +10,7 @@ namespace todo.Tests
     public class TodosRepositoryTests
     {
         private readonly DataContext _context;
-        private readonly TodosRepository _todosRepo;
+        private readonly ITodosRepository _todosRepo;
         private readonly Guid _todoId;
 
         public TodosRepositoryTests()
