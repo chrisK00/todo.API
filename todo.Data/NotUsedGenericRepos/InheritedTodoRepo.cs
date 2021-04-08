@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using todo.Data.Models;
 
 namespace todo.Data.NotUsedGenericRepos
@@ -22,5 +24,11 @@ namespace todo.Data.NotUsedGenericRepos
             }
             return base.Add(entity);
         }
+
+       /* public override IEnumerable<Todo> Find(Expression<Func<Todo, bool>> predicate)
+        {
+            return _context.Todos.Include().ThenInclude().Where().ToList();
+        }
+       */
     }
 }
